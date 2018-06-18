@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'HomeController');
-    
+
 // Authorization
 Route::get('login', 'Auth\SessionController@getLogin')->name('auth.login.form');
 Route::post('login', 'Auth\SessionController@postLogin')->name('auth.login.attempt');

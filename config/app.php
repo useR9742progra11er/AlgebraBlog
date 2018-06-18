@@ -167,7 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Centaur\CentaurServiceProvider::class,
+		Centaur\CentaurServiceProvider::class,
         /*
          * Application Service Providers...
          */

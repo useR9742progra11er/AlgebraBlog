@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
-	/**
-	 * Show home page.
-	 * 
-	 * @return Response
-	 */
+    /**
+     * Show the home page.
+     *
+     * @return Response
+     */
     public function __invoke()
-	{
-		return view('welcome');
-	}
+    {
+		$posts = Post::all();
+        return view('home', ['posts' => $posts]);
+    }
 }

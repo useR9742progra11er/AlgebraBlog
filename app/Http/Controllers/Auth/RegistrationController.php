@@ -63,10 +63,10 @@ class RegistrationController extends Controller
         if ($result->isFailure()) {
             return $result->dispatch();
         }
-
-        //Assign the role to the user
-        $role = Sentinel::findRoleBySlug('subscriber');
-        $role->users()->attach($result->user);
+		
+		// Assign the role to the user
+		$role = Sentinel::findRoleBySlug('subscriber');
+		$role->users()->attach($result->user);
 
         // Send the activation email
         $code = $result->activation->getCode();
