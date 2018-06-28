@@ -22,7 +22,15 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index');
+		$user_id = Sentinel::getUser()->id;
+		
+		if(Sentinel::getUser()->inRole('administrator')) {
+			$posts = Post::orderBy('created_at', 'desc')->paginate(20);
+		} else {
+			$posts = Post::where('user_id', $user_id)->orderBy('created_at', 'desc')->paginate(20);
+		}
+		
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -88,7 +96,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+		
+		return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -100,7 +110,27 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+			'title' => 'required|max:255',
+			'content' => 'required'
+		]);
+		
+		$post = Post::findOrFail($id);
+		
+		$data = array(
+			'title' => trim($request->get('title')),
+			'content' => trim($request->get('content'))
+		);
+		
+		try{
+			$post->updatePost($data);
+		} catch (Exception $e) {
+			session()->flash('error', $e->getMessage());
+			return redirect()->back();
+		}
+		
+		session()->flash('success', 'You have successfully updated a post!');
+		return redirect()->route('posts.index');
     }
 
     /**
@@ -111,6 +141,15 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+		
+		try{
+			$post->delete();
+		} catch(Exception $e) {
+			session()->flash('error', $e->getMessage());
+			return redirect()->back();
+		}
+		session()->flash('success', 'You have successfully deleted a post!');
+		return redirect()->route('posts.index');
     }
 }

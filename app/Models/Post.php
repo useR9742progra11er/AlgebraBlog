@@ -61,4 +61,14 @@ class Post extends Model
 	{
 		return $this->belongsTo('App\Models\User');
 	}
+	
+	/**
+     * Return the post relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+	public function comment()
+	{
+		return $this->hasMany('App\Models\Comment');
+	}
 }

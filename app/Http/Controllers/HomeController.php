@@ -14,7 +14,8 @@ class HomeController extends Controller
      */
     public function __invoke()
     {
-		$posts = Post::all();
+		$posts = Post::orderBy('created_at', 'desc')->paginate(12);
+
         return view('home', ['posts' => $posts]);
     }
 	
