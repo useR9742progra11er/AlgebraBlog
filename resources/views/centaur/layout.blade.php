@@ -29,7 +29,6 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="/">Algebra Blog</a>
-                      <img src="{{asset('images/Algebra.png')}}" alt="Algebra Logo" />
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
