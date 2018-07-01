@@ -43,9 +43,12 @@ Route::resource('posts', 'PostController');
 // Dashboard
 Route::get('dashboard', 'DashboardController')->name('dashboard');
 
-// Home page 
+// Home page
 Route::get('/', 'HomeController');
 
 // Single post page
 Route::get('/{slug}', 'HomeController@showPost')->name('home.post.show');
 
+//Comments route 1.7.2018 23:47
+Route::get('/post/{id}', 'PostsController@show')->name('posts.show');
+Route::resource('comments', 'CommentsController');
