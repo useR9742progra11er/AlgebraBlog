@@ -67,7 +67,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-	public function comment()
+	public function comments()
 	{
 		return $this->hasMany('App\Models\Comment');
 	}

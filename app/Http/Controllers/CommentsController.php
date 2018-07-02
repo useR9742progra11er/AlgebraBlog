@@ -1,30 +1,29 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Comment;
+use App\Post;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Http\Requests\CommentRequest;
 
-class CommentRequest extends FormRequest
+class CommentsController extends Controller
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return \Auth::check();
+    public function __construct() {
+        $this->middleware('auth');
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+
+    public function store(CommentRequest $request)
     {
-        return [
-            'body' => 'required|max:1000',
-        ];
+        $post = Post::findOrFail($request->post_id);
+
+        Comment::create([
+            'body' => $request->body,
+            'user_id' => Auth::id(),
+            'post_id' => $post->id
+        ]);
+        return redirect()->route('posts.show', $post->id);
     }
 }

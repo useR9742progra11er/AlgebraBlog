@@ -9,7 +9,7 @@ use App\Presenters\DatePresenter;
 
 class Comment extends Model
 {
-  //use DatePresenter;
+  use DatePresenter;
 
   // fields can be filled
   protected $fillable = ['body', 'user_id', 'post_id'];

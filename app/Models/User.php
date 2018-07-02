@@ -21,8 +21,8 @@ class User extends EloquentUser
 		 *
 		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 		 */
-		 public function comment()
-	 {
-	     return $this->hasMany('App\Comment');
-	 }
+		 public function comments()
+	{
+    return $this->hasMany('App\Models\Comment');
+	}
 }
